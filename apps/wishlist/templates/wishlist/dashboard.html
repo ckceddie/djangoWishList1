@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <meta charset="utf-8">
+    <title>My Wish List</title>
+    <style media="screen">
+        .frame_error{
+          width: 800px;
+          margin: 10px;
+          display: block;
+          color: red;
+          font-size: 9pt;
+        }
+        .frame_banner{
+          margin:10px;
+        }
+        .frame_menu{
+          text-align: right;
+        }
+
+        table{
+          border: 1px grey solid;
+        }
+        table thead{
+          background-color: lightgrey;
+        }
+        h3{
+          text-align: right;
+        }
+        h4{
+          margin-top: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="frame_menu">
+        <h4> <a class="btn btn-default"href="logout">Logout</a></h4>
+
+      </div>
+      <div class="frame_banner">
+        <h2>Hello {{ request.session.name }}</h2>
+      </div>
+      <div class="frame_error">
+        <ul>
+          {% for error in errors %}
+          <li>{{error}}</li>
+          {% endfor%}
+        </ul>
+      </div>
+
+
+      <div>
+        <h4>Your Wish List :</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>Item</td>
+              <td>Added by </td>
+              <td>Date Added</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for mywish in MyWishList %}
+              <tr>
+
+                <td> <a href="/wish_items/{{mywish.id}}">{{mywish.item}}</a>  </td>
+                {% for user in UserList %}
+                    {% if user.id == mywish.curr_user_id%}
+                      <td>{{user.name}} </td>
+                    {% endif %}
+                {% endfor %}
+                      <td>{{ mywish.created_at}}</td>
+                          {% if mywish.curr_user_id == request.session.id %}
+                          <form action="wish_items/deletewish" method="post">
+                            {% csrf_token %}
+
+                            <td><input type="hidden" name="itemid" value="{{mywish.id}}"> <input type="submit" value="Delete"> </td>
+</form>
+                          {% else %}
+                          <form action="wish_items/removewish" method="post">
+                            {% csrf_token %}
+
+
+                            <td><input type="hidden" name="itemid" value="{{mywish.id}}"> <input type="submit" value="Remove from my Wishlist"> </td>
+                            </form>
+                          {% endif %}
+
+              </tr>
+              {% endfor%}
+
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <div>
+        <h4>Other User's Wish List :</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td>Item</td>
+              <td>Added by </td>
+              <td>Date Atted</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+
+                <td></td>
+                <td></td>
+            </tr>
+            {% for otherlist in OtherWishList %}
+              <tr>
+                <td> <a href="/wish_items/{{otherlist.id}}">{{otherlist.item}}</a>  </td>
+                      {% for user in UserList %}
+                    {% if user.id == otherlist.curr_user_id%}
+                    <td>{{user.name}} </td>
+
+                    <td>{{ otherlist.created_at}}</td>
+                    <form action="wish_items/addwish" method="post">
+                      {% csrf_token %}
+
+                    <td>   <input type="hidden" name="itemid" value="{{otherlist.id}}"><input type="submit" value="Add to my Wishlist"> </td>
+
+                    </form>
+                    {% endif %}
+                    {% endfor %}
+
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <h3> <a class="btn btn-primary" href="wish_items/create"> Add Item </a></h3>
+
+
+
+    </div>
+
+  </body>
+</html>

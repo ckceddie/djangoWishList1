@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+
+    <style>
+        .frame_main{
+          width: 800px;
+          margin: 10px auto 0px auto;
+
+          /* text-align:center; */
+        }
+        .frame_error{
+          /* width: 800px;
+          margin: 10px; */
+          display: block;
+          color: red;
+          font-size: 9pt;
+        }
+        .frame_banner{
+          margin:10px;
+        }
+        .frame_menu{
+          text-align: right;
+        }
+        .frame_left{
+          width: 350px;
+          padding : 5px;
+          display: inline-block;
+          vertical-align: top;
+
+        }
+        .frame_right{
+          width: 350px;
+          padding : 5px;
+          display: inline-block;
+          vertical-align: top;
+        }
+        .pure-table{
+          border: 0px;
+
+
+        }
+        .pure-table td{
+          border:0px;
+          width:120px;
+          font-size: 12px;
+        }
+
+        h5{
+          margin:0px;
+        }
+        .no_space{
+          margin:0px 0px 0px 0px;
+          text-align: center;
+        }
+
+    </style>
+
+  <head>
+    <meta charset="utf-8">
+    <title> Login / Registration </title>
+  </head>
+  <body>
+    <div class="frame_main">
+      <div class="frame_menu">
+        <!-- <a href="#">home</a> || <a href="Logout"></a> -->
+      </div>
+      <div class="frame_banner">
+         <h2>Welcome !</h2>
+      </div>
+      <div class="frame_error">
+        <ul>
+          {% for error in errors %}
+          <li>{{error}}</li>
+          {% endfor%}
+        </ul>
+      </div>
+        <div class="frame_left">
+          <fieldset>
+            <legend> Register </legend>
+              <table class="pure-table">
+                <form action="register" method="post">
+                  {% csrf_token %}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" value=""> </td>
+                  </tr>
+                  <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="username" value=""> </td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password" value=""></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                  </tr>
+                </table>
+                <table>
+                  <tr>
+                    <h5  class="no_space">* Password should be at least 8 characters</h5>
+                  </tr>
+
+                </table>
+                <table class="pure-table">
+
+                  <tr>
+                    <td>Confirm PW</td>
+                    <td><input type="password" name="re-password" value=""> </td>
+                  </tr>
+                  <tr>
+                    <td>Date Hired</td>
+                    <td><input type="date" name="dateHired" value=""> </td>
+                  </tr>
+                  <tr>
+                  <td></td>
+                  <td><input type="submit" value="Register"> </td>
+                </tr>
+              </form>
+              </table>
+          </fieldset>
+        </div>
+        <div class="frame_right">
+          <fieldset>
+            <legend> Login </legend>
+              <table class="pure-table">
+                <form action="login" method="post">
+                  {% csrf_token %}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="username" value=""> </td>
+                  </tr>
+                  <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password" value=""> </td>
+                  </tr>
+                  <tr>
+                  <tr>
+                  <td></td>
+                  <td><input type="submit" value="Login"> </td>
+                </tr>
+              </form>
+              </table>
+          </fieldset>
+        </div>
+
+
+    </div>
+
+  </body>
+</html>

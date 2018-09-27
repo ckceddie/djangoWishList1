@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+        .frame_banner{
+          margin:10px;
+        }
+        .frame_menu{
+          text-align: right;
+        }
+        .frame_error{
+          margin-top: 20px;
+          margin-left: 20px;
+          display: block;
+          color: red;
+          font-size: 9pt;
+        }
+        .add{
+          width: 500px;
+        }
+        .list{
+          padding:30px 0px 0px 10px;
+        }
+        .right{
+          text-align: right;
+          padding-top: 30px;
+          padding-right: 40px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="frame_menu">
+        <h4><a class="btn btn-default"href="/dashboard">Home</a> <a class="btn btn-default"href="/logout">Logout</a></h4>
+
+      </div>
+      <div class="frame_banner">
+        <h2>Create a New Wish List Item</h2>
+        <div class="frame_error">
+          <ul>
+            {% for error in errors %}
+            <li>{{error}}</li>
+            {% endfor%}
+          </ul>
+        </div>
+        <p class="list">
+          <table class="add">
+            <form action="additem" method="post">
+              {% csrf_token %}
+            <tr>
+              <tdclass="right"> Item / Product : <input type="text" name="item" value="" size="55"> </td>
+            </tr>
+            <tr>
+              <td class="right"><input type="submit" value="Add"> </td>
+            </tr>
+
+          </form>
+          </table>
+        </p>
+      </div>
+
+    </div>
+  </body>
+</html>
